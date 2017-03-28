@@ -16,10 +16,10 @@ class Prog2 {
 			return tam;
 		}
 		virtual int retira() = 0;
-
 		void imprime() {
 			if(tam == 0) {
 				cout << "A " << nome_da_classe << " esta vazia!" << endl;
+				return;
 			}
 			cout << "Impressao = ";
 			for(Elem *aux = topo; aux != 0; aux = aux->prox) {
@@ -29,14 +29,13 @@ class Prog2 {
 		}
 		int ver_topo() {
 			if (tam == 0) {
-				cout << nome_da_classe << " vazia!" << endl;
+				cout << "A " << nome_da_classe << " vazia!" << endl;
 				return 0;
 			}
 			return topo->dado;
 		}
 	protected:
 		int tam;
-		//virtual string nome_da_classe;
 		class Elem{
 			public:
 				int dado;
@@ -48,7 +47,6 @@ class Prog2 {
 		};
 		Elem *topo;
 		Elem *base;
-	private:
 		string nome_da_classe;
 };
 
@@ -57,6 +55,7 @@ class Pilha : public Prog2 {
 	public:
 		Pilha() {
 			topo = 0;
+			nome_da_classe = "Pilha";
 		}
 
 		void insere(int dado) {
@@ -82,9 +81,6 @@ class Pilha : public Prog2 {
 			tam--;
 			return aux;			
 		}
-				
-	private:
-		string nome_da_classe = "Pilha";
 
 };
 
@@ -92,6 +88,10 @@ class Fila : public Prog2 {
 	public:
 		Fila() {
 			base = 0;
+			nome_da_classe = "Fila";
+		}
+		Fila(string nome) {
+			nome_da_classe = nome;
 		}
 		void insere(int dado) {
 			if (!tam) {				
@@ -110,7 +110,7 @@ class Fila : public Prog2 {
 		}
 		int retira() {
 				if (tam == 0) {
-					cout << "A "<< this->nome_da_classe << " esta vazia!" << endl;
+					cout << "A "<< nome_da_classe << " esta vazia!" << endl;
 					return 0;
 				}
 				int aux = base->dado;
@@ -121,13 +121,12 @@ class Fila : public Prog2 {
 				tam--;
 				return aux;			
 			}
-
-	private:
-		string nome_da_classe = "Fila";
 };
 
 class Lista : public Fila {
 	public:
+		Lista() : Fila("Lista") {}
+
 		void insere(int dado, int pos) {
 			if (!tam || pos >= tam) {				
 				Fila::insere(dado);
@@ -152,7 +151,7 @@ class Lista : public Fila {
 		}
 		int retira(int pos) {
 			if (tam == 0) {
-				cout << "A "<< this->nome_da_classe << " esta vazia!" << endl;
+				cout << "A "<< nome_da_classe << " esta vazia!" << endl;
 				return 0;
 			}
 			if (pos == 0 || pos > tam) {
@@ -171,16 +170,15 @@ class Lista : public Fila {
 			tam--;
 			return valor;			
 		}
-	private:
-		string nome_da_classe = "Lista";
-
 };
 
 int main()
 {
 
 	Fila p;
-	
+	p.imprime();
+	p.ver_topo();
+	/*p.retira();
 	p.insere(2);
 	p.insere(3);
 	p.insere(4);
@@ -191,7 +189,7 @@ int main()
 	p.imprime();
 	p.retira();
 	p.retira();
-	p.imprime();
+	p.imprime();*/
 
 	
 
